@@ -13,7 +13,7 @@ This project is the starting point for **Spin to Eat**, a meal-logging and food 
 
 📤 **Meal Logging**  
 • Add/Edit/View meal or restaurant  
-• 📷 Photo upload (Firebase Storage)  
+• 📷 Photo upload (Supabase Storage)  
 • 🏷️ Tags (e.g., spicy, halal, vegan)  
 • 📍 Location (manual or GPS-based)  
 • 📝 Notes (review, memory, price)  
