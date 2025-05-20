@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spin_to_eat/nav/navigation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
+  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-    url: "https://yhxztknoxahmlawqyffe.supabase.co",
-    anonKey:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloeHp0a25veGFobWxhd3F5ZmZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc0NjA0NTUsImV4cCI6MjA2MzAzNjQ1NX0.ZUbnk4tSzinOBgsWHFH3ZzLXVgfjAnTyX2g0mZD1RU8",
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
   runApp(const MyApp());
 }
@@ -20,13 +21,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'WheelMeal',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'Poppins',
+        scaffoldBackgroundColor: const Color(0xFFf6fff7),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
       ),
       routerConfig: GoRouter(
-        initialLocation: Navigation.initial,
         routes: Navigation.routes,
+        initialLocation: Navigation.initial,
       ),
     );
   }
