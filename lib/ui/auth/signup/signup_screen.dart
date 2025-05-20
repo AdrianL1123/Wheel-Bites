@@ -68,7 +68,11 @@ class _SignupScreenState extends State<SignupScreen> {
         _usernameController.text,
       );
       if (mounted) {
-        showToast.success("Successfully signed up !", context);
+        Future.delayed(Duration(milliseconds: 200), () {
+          if (mounted) {
+            showToast.success("Successfully signed up !", context);
+          }
+        });
       }
     } catch (e) {
       if (mounted) {
@@ -101,7 +105,11 @@ class _SignupScreenState extends State<SignupScreen> {
     }
     if (mounted) {
       context.pushReplacementNamed(Screen.home.name);
-      showToast.success("Logged in with Google!", context);
+      Future.delayed(Duration(milliseconds: 200), () {
+        if (mounted) {
+          showToast.success("Successfully logged in !", context);
+        }
+      });
     }
   }
 
