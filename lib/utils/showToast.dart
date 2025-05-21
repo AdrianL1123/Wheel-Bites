@@ -5,7 +5,8 @@ class ShowToast {
   void success(String message, BuildContext context) {
     Flushbar(
       message: message,
-      duration: Duration(seconds: 2),
+      isDismissible: true,
+      duration: Duration(milliseconds: 800),
       flushbarStyle: FlushbarStyle.FLOATING,
       icon: Icon(Icons.check, color: Colors.white),
       margin: EdgeInsets.all(57.0),
@@ -17,7 +18,7 @@ class ShowToast {
   void error(String message, BuildContext context) {
     Flushbar(
       message: message,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 1),
       flushbarStyle: FlushbarStyle.FLOATING,
       icon: Icon(Icons.error, color: Colors.white),
       margin: EdgeInsets.all(57.0),
