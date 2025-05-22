@@ -56,7 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
     }
     if (_passwordController.text.isEmpty) {
       setState(() {
-        _passwordError = "Password is empty";
+        _passwordError = "Password cannot be empty";
       });
       return;
     }
@@ -68,11 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
         _usernameController.text,
       );
       if (mounted) {
-        Future.delayed(Duration(milliseconds: 200), () {
-          if (mounted) {
-            showToast.success("Successfully signed up !", context);
-          }
-        });
+        context.pushReplacementNamed(Screen.home.name);
       }
     } catch (e) {
       if (mounted) {
@@ -105,11 +101,6 @@ class _SignupScreenState extends State<SignupScreen> {
     }
     if (mounted) {
       context.pushReplacementNamed(Screen.home.name);
-      Future.delayed(Duration(milliseconds: 200), () {
-        if (mounted) {
-          showToast.success("Successfully logged in !", context);
-        }
-      });
     }
   }
 
@@ -258,7 +249,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton.icon(
-                      onPressed: () => _googleSignIn(),
+                      onPressed: _googleSignIn,
                       icon: SvgPicture.asset(
                         'assets/icons8-google.svg',
                         height: 28,

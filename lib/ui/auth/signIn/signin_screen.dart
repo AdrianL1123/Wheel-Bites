@@ -94,11 +94,6 @@ class _SigninScreen extends State<SigninScreen> {
     }
     if (mounted) {
       context.pushReplacementNamed(Screen.home.name);
-      Future.delayed(Duration(milliseconds: 200), () {
-        if (mounted) {
-          showToast.success("Successfully logged in !", context);
-        }
-      });
     }
   }
 
