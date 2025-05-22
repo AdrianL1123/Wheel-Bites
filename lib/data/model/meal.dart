@@ -1,12 +1,12 @@
 class Meal {
-  String? id;
+  int? id;
   String? userId;
   final String mealName;
   final String restaurantName;
   double? priceEstimate;
-  String? img;
+  final String img;
   final List<String> tags;
-  String? notes;
+  final String notes;
   final int upvotes;
   final int downvotes;
   final bool isPublic;
@@ -19,16 +19,16 @@ class Meal {
     required this.mealName,
     required this.restaurantName,
     this.priceEstimate,
-    this.img,
+    this.img = "",
     this.tags = const [],
-    this.notes,
+    this.notes = "",
     this.isPublic = false,
     this.upvotes = 0,
     this.downvotes = 0,
   });
 
   Meal copy({
-    String? id,
+    int? id,
     String? userId,
     String? mealName,
     String? restaurantName,
@@ -76,7 +76,10 @@ class Meal {
       userId: mp["user_id"],
       mealName: mp["meal_name"],
       restaurantName: mp['restaurant_name'],
-      priceEstimate: (mp["price_estimate"]),
+      priceEstimate:
+          mp["price_estimate"] != null
+              ? (mp["price_estimate"] as num).toDouble()
+              : null,
       img: mp["img"],
       tags: List<String>.from(mp["tags"] ?? []),
       notes: mp["notes"],
@@ -88,6 +91,6 @@ class Meal {
 
   @override
   String toString() {
-    return "Meal($id, $mealName, $restaurantName, ${priceEstimate ?? 'N/A'})";
+    return "Meal($id, $mealName, $restaurantName, $priceEstimate)";
   }
 }
