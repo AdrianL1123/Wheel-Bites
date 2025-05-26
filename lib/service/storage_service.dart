@@ -14,7 +14,7 @@ class StorageService {
   final supabase = Supabase.instance.client;
 
   Future<void> uploadImage(String name, Uint8List bytes) async {
-    final resp = await supabase.storage
+    await supabase.storage
         .from("images")
         .uploadBinary(name, bytes, fileOptions: FileOptions(upsert: true));
   }
