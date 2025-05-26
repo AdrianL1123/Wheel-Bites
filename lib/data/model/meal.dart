@@ -7,8 +7,8 @@ class Meal {
   final String img;
   final List<String> tags;
   final String notes;
-  final int upvotes;
-  final int downvotes;
+  int upvotes;
+  int downvotes;
   final bool isPublic;
 
   static const name = "meals";
@@ -91,6 +91,6 @@ class Meal {
 
   @override
   String toString() {
-    return "Meal($id, $mealName, $restaurantName, $priceEstimate)";
+    return "Meal($id, $mealName, $restaurantName,$upvotes, $downvotes, $priceEstimate)";
   }
 }
