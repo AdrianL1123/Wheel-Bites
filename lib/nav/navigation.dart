@@ -2,6 +2,8 @@ import 'package:flutter_spin_to_eat/main_bottom_navigation.dart';
 import 'package:flutter_spin_to_eat/ui/addMeal/addMeal_screen.dart';
 import 'package:flutter_spin_to_eat/ui/auth/signIn/signin_screen.dart';
 import 'package:flutter_spin_to_eat/ui/auth/signup/signup_screen.dart';
+import 'package:flutter_spin_to_eat/ui/details/details_screen.dart';
+import 'package:flutter_spin_to_eat/ui/editMeal/editMeal_screen.dart';
 import 'package:flutter_spin_to_eat/ui/explore/explore_screen.dart';
 import 'package:flutter_spin_to_eat/ui/fortuneWheel/fortuneWheel_screen.dart';
 import 'package:flutter_spin_to_eat/ui/home/home_screen.dart';
@@ -48,6 +50,20 @@ class Navigation {
           builder: (context, state) => const AddMealScreen(),
         ),
         GoRoute(
+          path: "/details/:id",
+          name: Screen.details.name,
+          builder:
+              (context, state) =>
+                  DetailsScreen(id: (state.pathParameters["id"]!)),
+        ),
+        GoRoute(
+          path: "/editMeal/:id",
+          name: Screen.editMeal.name,
+          builder:
+              (context, state) =>
+                  EditMealScreen(id: state.pathParameters["id"]!),
+        ),
+        GoRoute(
           path: "/fortuneWheel",
           name: Screen.fortuneWheel.name,
           builder: (context, state) => const FortuneWheelScreen(),
@@ -65,10 +81,12 @@ class Navigation {
 enum Screen {
   main,
   home,
+  details,
   signin,
   signup,
   fortuneWheel,
   profile,
   addMeal,
+  editMeal,
   explore,
 }
