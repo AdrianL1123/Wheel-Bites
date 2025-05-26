@@ -19,7 +19,6 @@ class AddMealScreen extends StatefulWidget {
 class _AddMealScreenState extends State<AddMealScreen> {
   final repo = MealRepo();
   final storageService = StorageService();
-  static final showToast = ShowToast();
   final _mealNameController = TextEditingController();
   final _restaurantNameController = TextEditingController();
   final _tagsController = TextEditingController();
@@ -73,7 +72,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
       // because I am no longer in add page so I delay it to show on the new page
       Future.delayed(Duration(milliseconds: 200), () {
         if (mounted) {
-          showToast.success("Successfully added meal !", context);
+          ShowToast.success("Successfully added meal !", context);
         }
       });
     }

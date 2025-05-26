@@ -17,7 +17,6 @@ class SigninScreen extends StatefulWidget {
 
 class _SigninScreen extends State<SigninScreen> {
   static final supabase = Supabase.instance.client;
-  static final showToast = ShowToast();
   final authService = AuthService();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -59,13 +58,13 @@ class _SigninScreen extends State<SigninScreen> {
         context.pushReplacementNamed(Screen.home.name);
         Future.delayed(Duration(milliseconds: 200), () {
           if (mounted) {
-            showToast.success("Successfully logged in !", context);
+            ShowToast.success("Successfully logged in !", context);
           }
         });
       }
     } catch (e) {
       if (mounted) {
-        showToast.error("Something went wrong $e", context);
+        ShowToast.error("Something went wrong $e", context);
       }
     }
   }
