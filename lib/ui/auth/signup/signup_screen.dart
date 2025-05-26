@@ -17,7 +17,6 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   static final supabase = Supabase.instance.client;
-  static final showToast = ShowToast();
   final authService = AuthService();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -72,7 +71,7 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     } catch (e) {
       if (mounted) {
-        showToast.error("Something went wrong $e", context);
+        ShowToast.error("Something went wrong $e", context);
       }
     }
   }
