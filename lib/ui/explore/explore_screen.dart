@@ -45,7 +45,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
       final resp = await repo.getPublicMeals();
       final mealImages = <Uint8List?>[];
       for (final meal in resp) {
-        debugPrint('Processing meal: ${meal.mealName}');
         final image = await storageService.getImage(meal.img);
         mealImages.add(image);
         if (meal.id != null) {

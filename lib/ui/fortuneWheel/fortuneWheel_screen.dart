@@ -34,7 +34,6 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen> {
         meals = resp;
         isLoading = false;
       });
-      debugPrint(meals.toString());
     } catch (e) {
       if (mounted) {
         ShowToast.error("Something went wrong $e", context);

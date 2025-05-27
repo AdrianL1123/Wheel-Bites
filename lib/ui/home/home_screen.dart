@@ -78,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
         isLoading = false;
       });
     } catch (e) {
-      debugPrint('******************************');
       debugPrint('Error loading meals: $e');
       isLoading = false;
     }

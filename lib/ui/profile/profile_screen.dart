@@ -72,9 +72,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       bytes = imageBytes;
       _isLoading = false;
     });
-
-    debugPrint("******************************");
-    debugPrint(meal.toString());
   }
 
   void _logout() async {
