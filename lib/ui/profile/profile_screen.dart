@@ -100,10 +100,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     CircleAvatar(
                       radius: 40,
                       backgroundColor: Colors.grey[300],
-                      child: Text(
-                        'Profile',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.grey[500], fontSize: 12),
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.grey[500],
+                        size: 40,
                       ),
                     ),
                     const SizedBox(width: 16),
