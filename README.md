@@ -1,12 +1,18 @@
-# Wheel Bites !
+# Wheel Bites!  
+*A Flutter app to help you decide what to eat and log your meals.*
 
-A Flutter app to help you decide what to eat and log your meals.
+## 🚀 Getting Started
 
-## Getting Started
+This is the starting point for **Wheel Bites**, a meal-logging and food suggestion app.
 
-This project is the starting point for **Wheel-Meal**, a meal-logging and food suggestion app.
-To use app fork the repo and create a supabase account and connect with the app.
-Then in your terminal do **flutter clean** then **flutter run** 
+To try it out:
+
+1. Fork the repo.
+2. Set up a [Supabase](https://supabase.com) account and connect it to the app.
+3. In your terminal, run:
+   ```bash
+   flutter clean
+   flutter run
 
 ### Core Features of “Wheel Bites”
 
@@ -33,6 +39,16 @@ Then in your terminal do **flutter clean** then **flutter run**
 • Spin from user-added food/restaurants  
 • Fallback to default categories if no entries exist  
 • Show result and allow spin again
+
+## 🖼️ Screenshots
+
+| Explore | Details | Edit |
+|---------|---------|------|
+| ![Explore](screenshots/explore.png) | ![Details](screenshots/details.png) | ![Edit](screenshots/edit.png) |
+
+| Fortune Wheel | Profile | Auth |
+|---------------|---------|------|
+| ![Wheel](screenshots/fortune_wheel.png) | ![Profile](screenshots/profile.png) | ![Auth](screenshots/auth.png) |
 
 ---
 
