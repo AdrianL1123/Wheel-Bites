@@ -4,7 +4,7 @@ A Flutter app to help you decide what to eat and log your meals.
 
 ## Getting Started
 
-This project is the starting point for **Spin to Eat**, a meal-logging and food suggestion app.
+This project is the starting point for **Wheel-Meal**, a meal-logging and food suggestion app.
 To use app fork the repo and create a supabase account and connect with the app.
 Then in your terminal do **flutter clean** then **flutter run** 
 
