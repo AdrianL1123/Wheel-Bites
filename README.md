@@ -1,4 +1,4 @@
-# flutter_spin_to_eat
+# Wheel Bites !
 
 A Flutter app to help you decide what to eat and log your meals.
 
@@ -8,7 +8,7 @@ This project is the starting point for **Wheel-Meal**, a meal-logging and food s
 To use app fork the repo and create a supabase account and connect with the app.
 Then in your terminal do **flutter clean** then **flutter run** 
 
-### Core Features of “Spin to Eat”
+### Core Features of “Wheel Bites”
 
 🔐 **Authentication**  
 • Sign in/up with Supabase Auth (email, Google, etc.)
