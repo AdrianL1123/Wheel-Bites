@@ -11,7 +11,7 @@ Then in your terminal do **flutter clean** then **flutter run**
 ### Core Features of “Wheel Bites”
 
 🔐 **Authentication**  
-• Sign in/up with Supabase Auth (email, Google, etc.)
+• Sign in/up with Supabase Auth (email, Google)
 
 📤 **Meal Logging**  
 • Add/Edit/View meal or restaurant  
