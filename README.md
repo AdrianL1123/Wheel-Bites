@@ -5,17 +5,19 @@ A Flutter app to help you decide what to eat and log your meals.
 ## Getting Started
 
 This project is the starting point for **Spin to Eat**, a meal-logging and food suggestion app.
+To use app fork the repo and create a supabase account and connect with the app.
+Then in your terminal do **flutter clean** them **flutter run** 
 
 ### Core Features of “Spin to Eat”
 
 🔐 **Authentication**  
-• Sign in/up with Firebase Auth (email, Google, etc.)
+• Sign in/up with Supabase Auth (email, Google, etc.)
 
 📤 **Meal Logging**  
 • Add/Edit/View meal or restaurant  
 • 📷 Photo upload (Supabase Storage)  
 • 🏷️ Tags (e.g., spicy, halal, vegan)  
-• 📍 Location (manual or GPS-based)  
+• 📍 Location (manual)
 • 📝 Notes (review, memory, price)  
 • 🔒 Public or Private visibility
 
@@ -26,11 +28,11 @@ This project is the starting point for **Spin to Eat**, a meal-logging and food 
   • 👎 Downvote: “Not helpful/misleading”  
 • Votes stored with the post
 
-🎡 **Wheel Spin** *(Optional but fun)*  
+🎡 **Wheel Spin** 
 • Uses `flutter_fortune_wheel`  
 • Spin from user-added food/restaurants  
 • Fallback to default categories if no entries exist  
-• Show result and allow spin again or log the result
+• Show result and allow spin again
 
 ---
 
