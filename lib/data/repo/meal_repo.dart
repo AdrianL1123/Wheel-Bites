@@ -35,6 +35,17 @@ class MealRepo {
     return resp.map((map) => Meal.fromMap(map)).toList();
   }
 
+  Future<List<String>> getUserMealNames() async {
+    final userId = supabase.auth.currentUser!.id;
+
+    final resp = await supabase
+        .from("meals")
+        .select('meal_name')
+        .eq("user_id", userId);
+
+    return (resp).map((map) => map['meal_name'] as String).toList();
+  }
+
   Future<Map<String, dynamic>> getUserStats() async {
     final userId = supabase.auth.currentUser!.id;
 

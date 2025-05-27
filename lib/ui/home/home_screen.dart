@@ -61,9 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _loadUserMeals() async {
-    setState(() {
-      isLoading = true;
-    });
+    setState(() => isLoading = true);
 
     try {
       final List<Meal> resp = await repo.getUserMeals();
