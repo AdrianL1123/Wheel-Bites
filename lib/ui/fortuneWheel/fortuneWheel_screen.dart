@@ -73,7 +73,7 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen> {
                   selectedMeal != null
                       ? _selectedMealCard(selectedMeal!)
                       : _headerCard(),
-                  SizedBox(height: 52.0),
+                  SizedBox(height: 42.0),
                   SizedBox(
                     height: 350,
                     child: FortuneWheel(
@@ -85,6 +85,16 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen> {
                       onFling: () => _spinWheel(),
                       onAnimationEnd: () {
                         setState(() {
+                          if (meals.isEmpty) {
+                            const defaultItems = [
+                              "Chinese Cuisine",
+                              "Malay Cuisine",
+                              "Indian Cuisine",
+                              "Western Cuisine",
+                            ];
+                            selectedMeal = defaultItems[outcome!];
+                            return;
+                          }
                           selectedMeal = meals[outcome!];
                         });
                       },
@@ -129,17 +139,45 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen> {
                                 );
                               }).toList()
                               : [
-                                FortuneItem(child: Text("Chinese Cuisine")),
-                                FortuneItem(child: Text("Malay Cuisine")),
-                                FortuneItem(child: Text("Indian Cuisine")),
-                                FortuneItem(child: Text("Western Cuisine")),
+                                FortuneItem(
+                                  child: Text("Chinese Cuisine"),
+                                  style: FortuneItemStyle(
+                                    color: Color(0xFFff8e8e),
+                                    borderColor: Color(0xFFff8e8e),
+                                    borderWidth: 2,
+                                  ),
+                                ),
+                                FortuneItem(
+                                  child: Text("Malay Cuisine"),
+                                  style: FortuneItemStyle(
+                                    color: Color(0xFFff9e9e),
+                                    borderColor: Color(0xFFff8e8e),
+                                    borderWidth: 2,
+                                  ),
+                                ),
+                                FortuneItem(
+                                  child: Text("Indian Cuisine"),
+                                  style: FortuneItemStyle(
+                                    color: Color(0xFFff8e8e),
+                                    borderColor: Color(0xFFff8e8e),
+                                    borderWidth: 2,
+                                  ),
+                                ),
+                                FortuneItem(
+                                  child: Text("Western Cuisine"),
+                                  style: FortuneItemStyle(
+                                    color: Color(0xFFff9e9e),
+                                    borderColor: Color(0xFFff8e8e),
+                                    borderWidth: 2,
+                                  ),
+                                ),
                               ],
                     ),
                   ),
                   SizedBox(height: 32.0),
                   // Spin Button
                   SizedBox(
-                    width: 200,
+                    width: 220,
                     height: 46,
                     child: ElevatedButton(
                       onPressed: () => _spinWheel(),
