@@ -44,7 +44,7 @@ To try it out:
 
 | Explore | Details | Edit |
 |---------|---------|------|
-| ![Explore](screenshots/explore.png) | ![Details](screenshots/details.png) | ![Edit](screenshots/edit.png) |
+| ![Explore/Home](screenshots/explore.png) | ![Details](screenshots/details.png) | ![Edit/Add](screenshots/edit.png) |
 
 | Fortune Wheel | Profile | Auth |
 |---------------|---------|------|
