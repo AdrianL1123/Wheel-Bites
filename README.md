@@ -42,7 +42,7 @@ To try it out:
 
 ## 🖼️ Screenshots
 
-| Explore | Details | Edit |
+| Explore/Home | Details | Edit/ADD |
 |---------|---------|------|
 | ![Explore/Home](screenshots/explore.png) | ![Details](screenshots/details.png) | ![Edit/Add](screenshots/edit.png) |
 
