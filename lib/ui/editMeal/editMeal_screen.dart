@@ -123,7 +123,6 @@ class _EditMealScreenState extends State<EditMealScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Text(
           "Edit Meal",
           style: TextStyle(

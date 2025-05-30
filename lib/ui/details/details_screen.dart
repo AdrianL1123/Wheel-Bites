@@ -141,7 +141,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-  Widget _buildSection({
+  Widget _sectionBuilder({
     required String title,
     required IconData icon,
     required Widget child,
@@ -170,7 +170,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   Widget _customTags() {
-    return _buildSection(
+    return _sectionBuilder(
       title: 'Tags',
       icon: Icons.label,
       child: Wrap(
@@ -193,7 +193,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   Widget _buildDetailsSection() {
-    return _buildSection(
+    return _sectionBuilder(
       title: 'Details',
       icon: Icons.info_outline,
       child: Row(
@@ -220,7 +220,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   Widget _customStats() {
-    return _buildSection(
+    return _sectionBuilder(
       title: 'Community Feedback',
       icon: Icons.trending_up,
       child: Row(
@@ -248,7 +248,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   Widget _customNotesSection() {
-    return _buildSection(
+    return _sectionBuilder(
       title: 'Notes',
       icon: Icons.note,
       child: Container(
