@@ -23,7 +23,7 @@ To try it out:
 • Add/Edit/View meal or restaurant  
 • 📷 Photo upload (Supabase Storage)  
 • 🏷️ Tags (e.g., spicy, halal, vegan)  
-• 📍 Location (manual)
+• 📍 Location (manual)  
 • 📝 Notes (review, memory, price)  
 • 🔒 Public or Private visibility
 
