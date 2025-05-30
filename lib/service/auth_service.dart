@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
@@ -42,13 +44,26 @@ class AuthService {
     }
   }
 
+  Future<Map<String, dynamic>> googleSignIn() async {
+    final signInOption = GoogleSignIn(
+      serverClientId: dotenv.env["SUPABASE_CLIENT_ID"],
+    );
+
+    // Sign out first to force showing the account picker every time
+    await signInOption.signOut();
+    final googleUser = await signInOption.signIn();
+    final googleAuth = await googleUser!.authentication;
+
+    final AuthResponse resp = await supabase.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: googleAuth.idToken!,
+      accessToken: googleAuth.accessToken,
+    );
+    return {'user': resp.user, 'googleUser': googleUser};
+  }
+
   // Sign out / logout
   Future<void> signout() async {
     return await supabase.auth.signOut();
-  }
-
-  // Get user details
-  User? getSignedInUser() {
-    return supabase.auth.currentUser;
   }
 }

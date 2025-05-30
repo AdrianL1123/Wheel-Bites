@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spin_to_eat/nav/navigation.dart';
 import 'package:flutter_spin_to_eat/service/auth_service.dart';
 import 'package:flutter_spin_to_eat/utils/showToast.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -39,17 +37,14 @@ class _SigninScreen extends State<SigninScreen> {
   }
 
   void _signin() async {
-    if (_emailController.text.isEmpty) {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
       setState(() {
-        _emailError = "Email cannot be empty";
+        if (email.isEmpty) _emailError = "Email cannot be empty";
+        if (password.isEmpty) _passwordError = "Password cannot be empty";
       });
-      return;
-    }
-    if (_passwordController.text.isEmpty) {
-      setState(() {
-        _passwordError = "Password cannot be empty";
-      });
-      return;
     }
 
     try {
@@ -62,37 +57,28 @@ class _SigninScreen extends State<SigninScreen> {
           }
         });
       }
-    } catch (e) {
-      if (mounted) {
-        ShowToast.error("Something went wrong $e", context);
-      }
+    } on AuthException catch (e) {
+      if (mounted) ShowToast.error(e.message, context);
     }
   }
 
   Future<void> _googleSignIn() async {
-    final signInOption = GoogleSignIn(
-      serverClientId: dotenv.env["SUPABASE_CLIENT_ID"],
-    );
-
-    final googleUser = await signInOption.signIn();
-    final googleAuth = await googleUser!.authentication;
-
-    final AuthResponse resp = await supabase.auth.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: googleAuth.idToken!,
-      accessToken: googleAuth.accessToken,
-    );
-    final user = resp.user;
-    if (user != null) {
-      // Insert user info into your users table (if not exists)
-      await supabase.from("users").upsert({
-        'id': user.id,
-        'username': googleUser.displayName,
-        'email': user.email,
-      });
-    }
-    if (mounted) {
-      context.pushReplacementNamed(Screen.home.name);
+    try {
+      final result = await authService.googleSignIn();
+      final user = result['user'];
+      if (user != null) {
+        // Insert user info into your users table (if not exists)
+        await supabase.from("users").upsert({
+          'id': user.id,
+          'username': result['googleUser'].displayName,
+          'email': user.email,
+        });
+      }
+      if (mounted) {
+        context.pushReplacementNamed(Screen.home.name);
+      }
+    } on AuthException catch (e) {
+      if (mounted) ShowToast.error(e.message, context);
     }
   }
 
