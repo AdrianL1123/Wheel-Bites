@@ -6,6 +6,7 @@ import 'package:flutter_spin_to_eat/data/repo/meal_repo.dart';
 import 'package:flutter_spin_to_eat/nav/navigation.dart';
 import 'package:flutter_spin_to_eat/service/storage_service.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -15,6 +16,7 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
+  final supabase = Supabase.instance.client;
   final repo = MealRepo();
   final storageService = StorageService();
   var meals = <Meal>[];
@@ -42,14 +44,25 @@ class _ExploreScreenState extends State<ExploreScreen> {
     });
 
     try {
+      final currUserId = supabase.auth.currentUser?.id;
       final resp = await repo.getPublicMeals();
       final mealImages = <Uint8List?>[];
       for (final meal in resp) {
         final image = await storageService.getImage(meal.img);
         mealImages.add(image);
         if (meal.id != null) {
-          hasUpVoted[meal.id!] = meal.upvotes > 0;
-          hasDownVoted[meal.id!] = meal.downvotes > 0;
+          // another loop to check if user voted already for the meal
+          if (meal.mealVotes != null) {
+            for (final userVote in meal.mealVotes!) {
+              if (userVote.userId == currUserId) {
+                if (userVote.voteType == 'upvote') {
+                  hasUpVoted[meal.id!] = true;
+                } else if (userVote.voteType == 'downvote') {
+                  hasDownVoted[meal.id!] = true;
+                }
+              }
+            }
+          }
         }
       }
       setState(() {
@@ -77,7 +90,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void _upvote(Meal meal) async {
     if (meal.id == null) return;
-    await repo.voteMeal(meal.id!, 'upvote', meal.upvotes);
+    await repo.upVoteMeal(meal.id!, meal.upvotes);
     final vote = hasUpVoted[meal.id!] == true ? -1 : 1;
     final _meals =
         _filteredMeals
@@ -92,7 +105,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void _downvote(Meal meal) async {
     if (meal.id == null) return;
-    await repo.voteMeal(meal.id!, 'downvote', meal.downvotes);
+    await repo.downVoteMeal(meal.id!, meal.downvotes);
     final vote = hasDownVoted[meal.id!] == true ? -1 : 1;
     final _meals =
         _filteredMeals

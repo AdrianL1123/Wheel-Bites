@@ -1,3 +1,5 @@
+import 'package:flutter_spin_to_eat/data/model/meal_vote.dart';
+
 class Meal {
   int? id;
   String? userId;
@@ -9,6 +11,7 @@ class Meal {
   final String notes;
   int upvotes;
   int downvotes;
+  List<MealVote>? mealVotes;
   final bool isPublic;
 
   static const name = "meals";
@@ -25,6 +28,7 @@ class Meal {
     this.isPublic = false,
     this.upvotes = 0,
     this.downvotes = 0,
+    this.mealVotes,
   });
 
   Meal copy({
@@ -39,6 +43,7 @@ class Meal {
     bool? isPublic,
     int? upvotes,
     int? downvotes,
+    List<MealVote>? mealVotes,
   }) {
     return Meal(
       id: id ?? this.id,
@@ -52,6 +57,7 @@ class Meal {
       isPublic: isPublic ?? this.isPublic,
       upvotes: upvotes ?? this.upvotes,
       downvotes: downvotes ?? this.downvotes,
+      mealVotes: mealVotes ?? this.mealVotes,
     );
   }
 
@@ -84,13 +90,17 @@ class Meal {
       tags: List<String>.from(mp["tags"] ?? []),
       notes: mp["notes"],
       isPublic: mp["is_public"] ?? false,
-      upvotes: mp["upvotes"] ?? 0,
-      downvotes: mp["downvotes"] ?? 0,
+      upvotes: mp["upvotes"],
+      downvotes: mp["downvotes"],
+      mealVotes:
+          (mp["meal_votes"] as List<dynamic>?)
+              ?.map((item) => MealVote.fromMap(item))
+              .toList(),
     );
   }
 
   @override
   String toString() {
-    return "Meal($id, $mealName, $restaurantName,$upvotes, $downvotes, $priceEstimate)";
+    return "Meal($id, $mealName, $restaurantName,$upvotes, $downvotes, $mealVotes, $priceEstimate)";
   }
 }
