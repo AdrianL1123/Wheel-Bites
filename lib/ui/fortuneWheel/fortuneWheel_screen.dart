@@ -43,7 +43,7 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen> {
   }
 
   void _spinWheel() {
-    meals.isNotEmpty
+    meals.length >= 2
         ? controller.add(outcome = Fortune.randomInt(0, meals.length))
         : controller.add(outcome = Fortune.randomInt(0, 4));
   }
@@ -84,17 +84,17 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen> {
                       onFling: () => _spinWheel(),
                       onAnimationEnd: () {
                         setState(() {
-                          if (meals.isEmpty) {
-                            const defaultItems = [
-                              "Chinese Cuisine",
-                              "Malay Cuisine",
-                              "Indian Cuisine",
-                              "Western Cuisine",
-                            ];
-                            selectedMeal = defaultItems[outcome!];
-                            return;
-                          }
-                          selectedMeal = meals[outcome!];
+                          const defaultItems = [
+                            "Chinese Cuisine",
+                            "Malay Cuisine",
+                            "Indian Cuisine",
+                            "Western Cuisine",
+                          ];
+
+                          selectedMeal =
+                              meals.length >= 2
+                                  ? meals[outcome!]
+                                  : defaultItems[outcome!];
                         });
                       },
                       animateFirst: false,
@@ -111,7 +111,7 @@ class _FortuneWheelScreenState extends State<FortuneWheelScreen> {
                         ),
                       ],
                       items:
-                          meals.isNotEmpty
+                          meals.isNotEmpty && meals.length >= 2
                               // use the index to switch between colors
                               ? meals.asMap().entries.map((entry) {
                                 final index = entry.key;
