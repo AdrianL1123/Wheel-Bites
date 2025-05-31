@@ -92,14 +92,14 @@ class _ExploreScreenState extends State<ExploreScreen> {
     if (meal.id == null) return;
     await repo.upVoteMeal(meal.id!, meal.upvotes);
     final vote = hasUpVoted[meal.id!] == true ? -1 : 1;
-    final _meals =
+    final meals =
         _filteredMeals
             .map((m) => m.id == meal.id ? m.copy(upvotes: m.upvotes + vote) : m)
             .toList();
     setState(() {
       // Toggle the upvote status for this meal (true -> false, false/null -> true)
       hasUpVoted[meal.id!] = !(hasUpVoted[meal.id!] ?? false);
-      _filteredMeals = _meals;
+      _filteredMeals = meals;
     });
   }
 
@@ -107,7 +107,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     if (meal.id == null) return;
     await repo.downVoteMeal(meal.id!, meal.downvotes);
     final vote = hasDownVoted[meal.id!] == true ? -1 : 1;
-    final _meals =
+    final meals =
         _filteredMeals
             .map(
               (m) =>
@@ -117,7 +117,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     setState(() {
       // Toggle the downvote status for this meal (true -> false, false/null -> true)
       hasDownVoted[meal.id!] = !(hasDownVoted[meal.id!] ?? false);
-      _filteredMeals = _meals;
+      _filteredMeals = meals;
     });
   }
 

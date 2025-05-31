@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_spin_to_eat/data/repo/meal_repo.dart';
-import 'package:flutter_spin_to_eat/utils/showToast.dart';
+import 'package:flutter_spin_to_eat/utils/show_toast.dart';
 
 class FortuneWheelScreen extends StatefulWidget {
   const FortuneWheelScreen({super.key});

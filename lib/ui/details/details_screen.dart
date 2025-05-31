@@ -5,7 +5,7 @@ import 'package:flutter_spin_to_eat/data/model/meal.dart';
 import 'package:flutter_spin_to_eat/data/repo/meal_repo.dart';
 import 'package:flutter_spin_to_eat/nav/navigation.dart';
 import 'package:flutter_spin_to_eat/service/storage_service.dart';
-import 'package:flutter_spin_to_eat/utils/showToast.dart';
+import 'package:flutter_spin_to_eat/utils/show_toast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -59,7 +59,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
       if (mounted) {
         context.pop();
-        context.pushReplacementNamed(Screen.home.name);
+        context.goNamed(Screen.home.name);
         Future.delayed(Duration(milliseconds: 200), () {
           if (mounted) {
             ShowToast.success("Successfully deleted meal !", context);
