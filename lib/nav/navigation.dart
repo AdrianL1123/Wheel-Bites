@@ -1,11 +1,11 @@
 import 'package:flutter_spin_to_eat/main_bottom_navigation.dart';
-import 'package:flutter_spin_to_eat/ui/addMeal/addMeal_screen.dart';
+import 'package:flutter_spin_to_eat/ui/addMeal/add_meal_screen.dart';
 import 'package:flutter_spin_to_eat/ui/auth/signIn/signin_screen.dart';
 import 'package:flutter_spin_to_eat/ui/auth/signup/signup_screen.dart';
 import 'package:flutter_spin_to_eat/ui/details/details_screen.dart';
-import 'package:flutter_spin_to_eat/ui/editMeal/editMeal_screen.dart';
+import 'package:flutter_spin_to_eat/ui/editMeal/edit_meal_screen.dart';
 import 'package:flutter_spin_to_eat/ui/explore/explore_screen.dart';
-import 'package:flutter_spin_to_eat/ui/fortuneWheel/fortuneWheel_screen.dart';
+import 'package:flutter_spin_to_eat/ui/fortuneWheel/fortune_wheel_screen.dart';
 import 'package:flutter_spin_to_eat/ui/home/home_screen.dart';
 import 'package:flutter_spin_to_eat/ui/profile/profile_screen.dart';
 import 'package:go_router/go_router.dart';

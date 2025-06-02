@@ -19,9 +19,10 @@ class MealRepo {
   Future<List<Meal>> getPublicMeals() async {
     final resp = await supabase
         .from("meals")
-        .select()
+        .select('*, meal_votes(*)') // get relational data
         .eq("is_public", true)
         .order("id", ascending: false);
+
     return resp.map((map) => Meal.fromMap(map)).toList();
   }
 
@@ -32,6 +33,7 @@ class MealRepo {
         .select()
         .eq("user_id", userId)
         .order("id", ascending: false);
+
     return resp.map((map) => Meal.fromMap(map)).toList();
   }
 
@@ -120,32 +122,61 @@ class MealRepo {
     return Meal.fromMap(resp);
   }
 
-  Future<void> voteMeal(int? mealId, String voteType, int currentCount) async {
+  Future<void> upVoteMeal(int? mealId, int currentCount) async {
     final userId = supabase.auth.currentUser!.id;
     if (mealId == null) return;
 
     // Check if this user already voted this voteType on the meal
-    final existingVote = await mealVoteRepo.checkIfVoteExists(mealId, voteType);
+    final existingVote = await mealVoteRepo.checkIfVoteExists(mealId, 'upvote');
 
     if (existingVote == false) {
       // No existing vote: add vote and increment counter
       await mealVoteRepo.addVote(
-        MealVote(userId: userId, mealId: mealId, voteType: voteType),
+        MealVote(userId: userId, mealId: mealId, voteType: 'upvote'),
       );
+
       await supabase
           .from('meals')
-          .update({
-            voteType == 'upvote' ? 'upvotes' : 'downvotes': currentCount + 1,
-          })
+          .update({'upvotes': currentCount + 1})
           .eq('id', mealId);
     } else {
       // Vote exists: remove vote and decrement counter
-      await mealVoteRepo.deleteVote(userId, mealId, voteType);
+      await mealVoteRepo.deleteVote(userId, mealId, 'upvote');
+
       await supabase
           .from('meals')
-          .update({
-            voteType == 'upvote' ? 'upvotes' : 'downvotes': currentCount - 1,
-          })
+          .update(({'upvotes': currentCount - 1}))
+          .eq('id', mealId);
+    }
+  }
+
+  Future<void> downVoteMeal(int? mealId, int currentCount) async {
+    final userId = supabase.auth.currentUser!.id;
+    if (mealId == null) return;
+
+    // Check if this user already voted this voteType on the meal
+    final existingVote = await mealVoteRepo.checkIfVoteExists(
+      mealId,
+      'downvote',
+    );
+
+    if (existingVote == false) {
+      // No existing vote: add vote and increment counter
+      await mealVoteRepo.addVote(
+        MealVote(userId: userId, mealId: mealId, voteType: 'downvote'),
+      );
+
+      await supabase
+          .from('meals')
+          .update({'downvotes': currentCount + 1})
+          .eq('id', mealId);
+    } else {
+      // Vote exists: remove vote and decrement counter
+      await mealVoteRepo.deleteVote(userId, mealId, 'downvote');
+
+      await supabase
+          .from('meals')
+          .update(({'downvotes': currentCount - 1}))
           .eq('id', mealId);
     }
   }

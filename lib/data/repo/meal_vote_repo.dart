@@ -13,6 +13,7 @@ class MealVoteRepo {
 
   Future<bool> checkIfVoteExists(int? mealId, String voteType) async {
     final userId = supabase.auth.currentUser!.id;
+
     if (mealId != null) {
       final resp =
           await supabase
@@ -21,8 +22,10 @@ class MealVoteRepo {
               .eq("user_id", userId)
               .eq("meal_id", mealId)
               .eq("vote_type", voteType)
+              .limit(1)
               .maybeSingle();
-      return resp != null ? true : false;
+
+      return resp != null;
     }
     return false;
   }

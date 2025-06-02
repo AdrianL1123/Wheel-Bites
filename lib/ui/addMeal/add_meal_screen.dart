@@ -1,24 +1,22 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spin_to_eat/data/model/meal.dart';
 import 'package:flutter_spin_to_eat/data/repo/meal_repo.dart';
 import 'package:flutter_spin_to_eat/nav/navigation.dart';
 import 'package:flutter_spin_to_eat/service/storage_service.dart';
-import 'package:flutter_spin_to_eat/utils/showToast.dart';
+import 'package:flutter_spin_to_eat/utils/show_toast.dart';
 import 'package:go_router/go_router.dart';
 
-class EditMealScreen extends StatefulWidget {
-  const EditMealScreen({super.key, required this.id});
-  final String id;
+class AddMealScreen extends StatefulWidget {
+  const AddMealScreen({super.key});
 
   @override
-  State<EditMealScreen> createState() => _EditMealScreenState();
+  State<AddMealScreen> createState() => _AddMealScreenState();
 }
 
-class _EditMealScreenState extends State<EditMealScreen> {
+class _AddMealScreenState extends State<AddMealScreen> {
   final repo = MealRepo();
   final storageService = StorageService();
   final _mealNameController = TextEditingController();
@@ -27,7 +25,6 @@ class _EditMealScreenState extends State<EditMealScreen> {
   final _notesController = TextEditingController();
   final _priceEstimateController = TextEditingController();
 
-  late Meal? meals;
   String? _tagsError;
   String? _mealNameError;
   String? _restaurantNameError;
@@ -35,31 +32,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
   Uint8List? bytes;
   bool _isPublic = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _loadMealData();
-  }
-
-  void _loadMealData() async {
-    final fetchedMeal = await repo.getUserMealsById(int.parse(widget.id));
-    final imageBytes = await storageService.getImage(fetchedMeal.img);
-
-    setState(() {
-      meals = fetchedMeal;
-      _mealNameController.text = meals!.mealName;
-      _restaurantNameController.text = meals!.restaurantName;
-      _tagsController.text = meals!.tags.join(', ');
-      _notesController.text = meals!.notes;
-      _priceEstimateController.text = meals!.priceEstimate?.toString() ?? '';
-      _isPublic = meals!.isPublic;
-      // load image
-      bytes = imageBytes;
-      fileName = meals!.img;
-    });
-  }
-
-  void _editMeal() async {
+  void _addMeal() async {
     if (_mealNameController.text.isEmpty) {
       setState(() {
         _mealNameError = "Meal cannot be empty";
@@ -77,13 +50,14 @@ class _EditMealScreenState extends State<EditMealScreen> {
     if (fileName != null && bytes != null) {
       await storageService.uploadImage(fileName!, bytes!);
     }
-    await repo.editMeal(
-      meals!.copy(
+    await repo.addMeal(
+      Meal(
         mealName: _mealNameController.text,
         restaurantName: _restaurantNameController.text,
         notes: _notesController.text,
         priceEstimate: double.tryParse(_priceEstimateController.text),
         tags:
+            // take tags separated by commas
             _tagsController.text
                 .split(',')
                 .map((tag) => tag.trim())
@@ -94,10 +68,11 @@ class _EditMealScreenState extends State<EditMealScreen> {
       ),
     );
     if (mounted) {
-      context.pushReplacementNamed(Screen.home.name);
+      context.goNamed(Screen.home.name);
+      // because I am no longer in add page so I delay it to show on the new page
       Future.delayed(Duration(milliseconds: 200), () {
         if (mounted) {
-          ShowToast.success("Successfully edited meal !", context);
+          ShowToast.success("Successfully added meal !", context);
         }
       });
     }
@@ -125,7 +100,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          "Edit Meal",
+          "Add New Meal",
           style: TextStyle(
             color: Color(0xFFff6b6b),
             fontWeight: FontWeight.bold,
@@ -260,7 +235,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
                         controller: _notesController,
                         errorText: null,
                         label: "Notes",
-                        hintText: "Notes",
+                        hintText: "Share your thoughts...",
                         maxLines: 2,
                         textInputType: null,
                       ),
@@ -314,12 +289,13 @@ class _EditMealScreenState extends State<EditMealScreen> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          onPressed: _editMeal,
+                          onPressed: _addMeal,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Icon(Icons.add, color: Colors.white),
                               Text(
-                                "Edit Meal",
+                                "Add Meal",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
