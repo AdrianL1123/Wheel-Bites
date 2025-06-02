@@ -59,7 +59,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
       if (mounted) {
         context.pop();
-        context.goNamed(Screen.home.name);
+        context.pushReplacementNamed(Screen.home.name);
         Future.delayed(Duration(milliseconds: 200), () {
           if (mounted) {
             ShowToast.success("Successfully deleted meal !", context);
