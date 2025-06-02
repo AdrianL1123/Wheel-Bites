@@ -259,7 +259,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
                         controller: _notesController,
                         errorText: null,
                         label: "Notes",
-                        hintText: "Notes",
+                        hintText: "Share your thoughts...",
                         maxLines: 2,
                         textInputType: null,
                       ),
