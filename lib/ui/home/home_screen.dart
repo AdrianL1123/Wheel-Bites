@@ -305,10 +305,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: const Color(0xFFff6b6b),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(tag, style: TextStyle(fontSize: 13)),
+      child: Text(tag, style: TextStyle(fontSize: 13, color: Colors.white)),
     );
   }
 }
