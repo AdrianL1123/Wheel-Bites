@@ -39,9 +39,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
 
   void _loadPublicMeals() async {
-    setState(() {
-      isLoading = true;
-    });
+    setState(() => isLoading = true);
 
     try {
       final currUserId = supabase.auth.currentUser?.id;
@@ -74,9 +72,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       });
     } catch (e) {
       debugPrint('Error loading public meals: $e');
-      setState(() {
-        isLoading = false;
-      });
+      setState(() => isLoading = false);
     }
   }
 
@@ -90,8 +86,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void _upvote(Meal meal) async {
     if (meal.id == null) return;
+    // update backend
     await repo.upVoteMeal(meal.id!, meal.upvotes);
+    // update frontend
     final vote = hasUpVoted[meal.id!] == true ? -1 : 1;
+    // update ui from frontend var
     final meals =
         _filteredMeals
             .map((m) => m.id == meal.id ? m.copy(upvotes: m.upvotes + vote) : m)
@@ -105,8 +104,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void _downvote(Meal meal) async {
     if (meal.id == null) return;
+    // update backend
     await repo.downVoteMeal(meal.id!, meal.downvotes);
+    // update frontend
     final vote = hasDownVoted[meal.id!] == true ? -1 : 1;
+    // update ui from frontend var
     final meals =
         _filteredMeals
             .map(
@@ -124,6 +126,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   void _onSearchChanged() {
     setState(() {
       _searchQuery = _searchController.text.toLowerCase();
+      // Convert to Map<int, Meal> to access index for matching meals images.
       final filtered =
           meals
               .asMap()

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spin_to_eat/nav/navigation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'WheelMeal',
       theme: ThemeData(
-        fontFamily: 'Poppins',
+        textTheme: GoogleFonts.poppinsTextTheme(),
         scaffoldBackgroundColor: const Color(0xFFf6fff7),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
       ),
